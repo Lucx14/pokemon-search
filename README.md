@@ -16,3 +16,9 @@ localhost:8000
 localhost:8000/pokemon/<pokemon-name>
 localhost:8000/pokemon/translated/<pokemon-name>
 docs available on localhost:8000/docs
+
+to run in vscode with debugger open the debugger menu
+
+- Run and Debug
+- Select FastAPI
+- enter path - app.main.py

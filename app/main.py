@@ -1,5 +1,5 @@
 from typing import Optional
-
+import uvicorn
 from fastapi import FastAPI
 import requests
 
@@ -33,3 +33,7 @@ def translate_item(pokemon_name: str, q: Optional[str] = None):
     pokemon["habitat"] = res["habitat"]["name"]
     pokemon["is_legendary"] = res["is_legendary"]
     return {"pokemon_name": pokemon_name, "q": q, "payload": pokemon}
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
