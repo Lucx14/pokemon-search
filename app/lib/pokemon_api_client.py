@@ -1,15 +1,5 @@
 import requests
-
-# maybe extract to a helpers/errors directory to tidy up??
-class ClientError(Exception):
-    """Exception raised if we are unable to get a response from the pokemon api"""
-
-    def __init__(self, message="Error: Pokemon api error"):
-        self.message = message
-        super().__init__(self.message)
-
-    def __str__(self):
-        return f"{self.message}"
+from ..utils.app_exceptions import ClientError
 
 
 class PokemonApiClient:

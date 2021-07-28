@@ -44,3 +44,21 @@ INVALID_HABITAT_PAYLOAD = {
     ],
     "habitat": None,
 }
+
+
+TRANSLATOR_SUCCESS = {
+    "success": {"total": 1},
+    "contents": {
+        "translated": "Lost a planet,  master obiwan has.",
+        "text": "Master Obiwan has lost a planet.",
+        "translation": "yoda",
+    },
+}
+
+
+TRANSLATOR_RATE_LIMIT_EXCEEDED = {
+    "error": {
+        "code": 429,
+        "message": "Too Many Requests: Rate limit of 5 requests per hour exceeded. Please wait for 59 minutes and 59 seconds.",
+    }
+}

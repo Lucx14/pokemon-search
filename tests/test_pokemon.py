@@ -1,7 +1,7 @@
 # from app.lib.pokemon_api_client import PokemonApiClient, ClientError
 from unittest.case import expectedFailure
 from app.models.pokemon import Pokemon
-from .helpers.dummy_payloads import (
+from .helpers.payload_helpers import (
     VALID_PAYLOAD,
     INVALID_DESCRIPTION_PAYLOAD,
     INVALID_HABITAT_PAYLOAD,

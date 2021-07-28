@@ -1,24 +1,15 @@
-from app.lib.pokemon_api_client import PokemonApiClient, ClientError
+from app.lib.pokemon_api_client import PokemonApiClient
+from app.utils.app_exceptions import ClientError
+from tests.helpers.mock_helpers import MockResponse, my_side_effect
+from tests.helpers.message_helpers import (
+    POKE_API_ERROR,
+    NAME_ERROR,
+    TEST_ENDPOINT,
+    TEST_NAME,
+)
 from unittest.mock import patch
 import unittest
 import pytest
-
-# Maybe put in something like a test helpers file??
-class MockResponse:
-    def __init__(self, json_data, status_code):
-        self.json_data = json_data
-        self.status_code = status_code
-
-    def json(self):
-        return self.json_data
-
-
-def my_side_effect(arg):
-    raise Exception("Test")
-
-
-API_ERROR = "Error: Pokemon api error: Test"
-NAME_ERROR = "Error: Pokemon NOT FOUND possible name error"
 
 
 class PokemonApiClientTest(unittest.TestCase):
@@ -27,12 +18,10 @@ class PokemonApiClientTest(unittest.TestCase):
         # Set up a dummy return value for the mocked api call
         mock_api_call.return_value = MockResponse({"name": "test"}, 200)
 
-        endpoint = "test/"
-        name_param = "testname/"
-        expected_test_url = f"https://pokeapi.co/api/v2/{endpoint}{name_param}"
+        expected_test_url = f"https://pokeapi.co/api/v2/{TEST_ENDPOINT}{TEST_NAME}"
 
         # call on the Api CLient
-        response = PokemonApiClient(endpoint, name_param).call()
+        response = PokemonApiClient(TEST_ENDPOINT, TEST_NAME).call()
 
         # test an api call was sent to the expected url
         mock_api_call.assert_called_once_with(expected_test_url)
@@ -45,22 +34,15 @@ class PokemonApiClientTest(unittest.TestCase):
         # set the mock api call to raise an exception
         mock_api_call.side_effect = my_side_effect
 
-        endpoint = "invalid-endpoint/"
-        name_param = "testname/"
-
         # assert we will raise our custom error with message
-        with pytest.raises(ClientError, match=API_ERROR):
-            PokemonApiClient(endpoint, name_param).call()
+        with pytest.raises(ClientError, match=POKE_API_ERROR):
+            PokemonApiClient(TEST_ENDPOINT, TEST_NAME).call()
 
     @patch("app.lib.pokemon_api_client.requests.get")
     def test_invalid_pokemon_name(self, mock_api_call):
         # Set up a dummy return value for the mocked api call with a not found status
         mock_api_call.return_value = MockResponse({}, 404)
 
-        # note the url we expect the call to go to based on input
-        endpoint = "test/"
-        name_param = "invalidtestname/"
-
         # assert we will raise our custom error with message
         with pytest.raises(ClientError, match=NAME_ERROR):
-            PokemonApiClient(endpoint, name_param).call()
+            PokemonApiClient(TEST_ENDPOINT, TEST_NAME).call()
