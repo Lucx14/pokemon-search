@@ -2,6 +2,7 @@ from typing import Optional
 import uvicorn
 from fastapi import FastAPI
 import requests
+from .lib.pokemon_api_client import PokemonApiClient
 
 app = FastAPI()
 
@@ -11,10 +12,12 @@ def read_root():
     return {"Hello": "World"}
 
 
+ENDPOINT_URL = "/pokemon-species/"
+
+
 @app.get("/pokemon/{pokemon_name}")
 def read_item(pokemon_name: str, q: Optional[str] = None):
-    response = requests.get("https://pokeapi.co/api/v2/pokemon-species/mewtwo")
-    res = response.json()
+    res = PokemonApiClient(ENDPOINT_URL, "mewtwo").call()
     pokemon = {}
     pokemon["name"] = res["name"]
     pokemon["description"] = "placeholder"
@@ -25,8 +28,7 @@ def read_item(pokemon_name: str, q: Optional[str] = None):
 
 @app.get("/pokemon/translated/{pokemon_name}")
 def translate_item(pokemon_name: str, q: Optional[str] = None):
-    response = requests.get("https://pokeapi.co/api/v2/pokemon-species/mewtwo")
-    res = response.json()
+    res = PokemonApiClient(ENDPOINT_URL, "mewtwo").call()
     pokemon = {}
     pokemon["name"] = res["name"]
     pokemon["description"] = "translation placeholder"

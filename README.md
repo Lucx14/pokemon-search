@@ -10,6 +10,7 @@ fastapi - the framework 0.67.0
 uvicorn - the server for the framework 0.14.0
 black - code formatter 21.7b0 ??
 requests - 2.26.0
+pytest - 6.2.4
 
 app runs on localhost:8000
 localhost:8000
@@ -22,3 +23,5 @@ to run in vscode with debugger open the debugger menu
 - Run and Debug
 - Select FastAPI
 - enter path - app.main.py
+
+run tests with pytest - set up tests to run inside the docker container
