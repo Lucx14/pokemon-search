@@ -14,6 +14,22 @@ VALID_PAYLOAD = {
     },
 }
 
+YODA_PAYLOAD = {
+    "name": "charizard",
+    "is_legendary": True,
+    "flavor_text_entries": [
+        {
+            "flavor_text": "It was created by\na scientist after\nyears of horrific\fgene splicing and\nDNA engineering\nexperiments.",
+            "language": {"name": "en", "url": "testing"},
+            "version": {"name": "red", "url": "testing"},
+        }
+    ],
+    "habitat": {
+        "name": "mountain",
+        "url": "test",
+    },
+}
+
 
 INVALID_DESCRIPTION_PAYLOAD = {
     "name": "charizard",

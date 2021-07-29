@@ -46,7 +46,6 @@ class Pokemon:
     def get_is_legendary(self):
         return self.is_legendary
 
-    # maybe add an extra test for this.....
     def translation_style(self):
         if self.habitat == "cave" or self.is_legendary == True:
             return YODA

@@ -1,11 +1,11 @@
-# from app.lib.pokemon_api_client import PokemonApiClient, ClientError
-from unittest.case import expectedFailure
 from app.models.pokemon import Pokemon
 from .helpers.payload_helpers import (
     VALID_PAYLOAD,
+    YODA_PAYLOAD,
     INVALID_DESCRIPTION_PAYLOAD,
     INVALID_HABITAT_PAYLOAD,
 )
+from .helpers.message_helpers import YODA_STYLE, SHAKESPEARE_STYLE
 import unittest
 
 
@@ -35,3 +35,11 @@ class PokemonTest(unittest.TestCase):
         assert pokemon.get_description() == expected_description
         assert pokemon.get_habitat() == "Unknown"
         assert pokemon.get_is_legendary() == False
+
+    def test_determines_translation_style_when_shakespeare(self):
+        pokemon = Pokemon(VALID_PAYLOAD)
+        assert pokemon.translation_style() == SHAKESPEARE_STYLE
+
+    def test_determines_translation_style_when_yoda(self):
+        pokemon = Pokemon(YODA_PAYLOAD)
+        assert pokemon.translation_style() == YODA_STYLE
