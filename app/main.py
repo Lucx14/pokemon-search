@@ -1,5 +1,4 @@
-from typing import Optional
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Depends
 from .services.pokemon_species_search_service import PokemonSpeciesSearchService
 from .services.fun_translation_service import FunTranslationService
 from .models.pokemon import Pokemon
@@ -41,9 +40,12 @@ async def translator_api_exception_handler(
     )
 
 
+async def pokemon_data(pokemon_name: str):
+    return PokemonSpeciesSearchService(pokemon_name).call()
+
+
 @app.get("/pokemon/{pokemon_name}")
-def read_item(pokemon_name: str, q: Optional[str] = None):
-    data = PokemonSpeciesSearchService(pokemon_name).call()
+def read_item(data=Depends(pokemon_data)):
     pokemon = Pokemon(data)
 
     return {
@@ -56,8 +58,7 @@ def read_item(pokemon_name: str, q: Optional[str] = None):
 
 
 @app.get("/pokemon/translated/{pokemon_name}")
-def translate_item(pokemon_name: str, q: Optional[str] = None):
-    data = PokemonSpeciesSearchService(pokemon_name).call()
+def translate_item(data=Depends(pokemon_data)):
     pokemon = Pokemon(data)
     style = pokemon.translation_style()
     text = pokemon.get_description()

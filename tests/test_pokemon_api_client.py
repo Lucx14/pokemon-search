@@ -1,6 +1,6 @@
 from app.lib.pokemon_api_client import PokemonApiClient
 from app.utils.app_exceptions import PokemonApiException, InvalidNameException
-from tests.helpers.mock_helpers import MockResponse, my_side_effect
+from tests.helpers.mock_helpers import MockResponse, throw_an_exception
 from tests.helpers.message_helpers import (
     POKE_API_ERROR,
     NAME_ERROR,
@@ -27,7 +27,7 @@ class PokemonApiClientTest(unittest.TestCase):
     @patch("app.lib.pokemon_api_client.requests.get")
     def test_api_failure(self, mock_api_call):
         # set the mock api call to raise an exception
-        mock_api_call.side_effect = my_side_effect
+        mock_api_call.side_effect = throw_an_exception
 
         # assert we will raise our custom error with message
         with pytest.raises(PokemonApiException, match=POKE_API_ERROR):
