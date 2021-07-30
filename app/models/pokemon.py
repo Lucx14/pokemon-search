@@ -20,9 +20,12 @@ class Pokemon:
 
     @staticmethod
     def english_descriptions(descriptions, version):
-        for d in descriptions:
-            if d["language"]["name"] == "en" and d["version"]["name"] == version:
-                return d["flavor_text"].replace("\n", " ").replace("\f", " ")
+        for description in descriptions:
+            if (
+                description["language"]["name"] == "en"
+                and description["version"]["name"] == version
+            ):
+                return description["flavor_text"].replace("\n", " ").replace("\f", " ")
         return "Unknown"
 
     @staticmethod
@@ -47,6 +50,6 @@ class Pokemon:
         return self.is_legendary
 
     def translation_style(self):
-        if self.habitat == "cave" or self.is_legendary == True:
+        if self.habitat == "cave" or self.is_legendary is True:
             return YODA
         return SHAKESPEARE

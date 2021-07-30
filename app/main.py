@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request, Depends
+from fastapi.responses import JSONResponse
 from .services.pokemon_species_search_service import PokemonSpeciesSearchService
 from .services.fun_translation_service import FunTranslationService
 from .models.pokemon import Pokemon
@@ -7,7 +8,6 @@ from .utils.app_exceptions import (
     InvalidNameException,
     TranslatorApiException,
 )
-from fastapi.responses import JSONResponse
 
 app = FastAPI()
 

@@ -13,13 +13,12 @@ class TranslatorApiClient:
         try:
             response = requests.get(f"{self.BASE_URI}{self.endpoint}?text={self.text}")
         except Exception as err:
-            raise TranslatorApiException(f"Error: Translator api error: {err}")
+            raise TranslatorApiException(f"Error: Translator api error: {err}") from err
 
         if response.status_code == 200:
             return response.json()
-        elif response.status_code == 429:
+        if response.status_code == 429:
             return {"contents": {"translated": self.text}}
-        else:
-            raise TranslatorApiException(
-                f"Error: Translator api error: {response.status_code}"
-            )
+        raise TranslatorApiException(
+            f"Error: Translator api error: {response.status_code}"
+        )

@@ -11,6 +11,7 @@ uvicorn - the server for the framework 0.14.0
 black - code formatter 21.7b0 ??
 requests - 2.26.0
 pytest - 6.2.4
+pylint - 2.9.6
 
 app runs on localhost:8000
 localhost:8000
