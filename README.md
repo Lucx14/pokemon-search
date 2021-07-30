@@ -3,16 +3,6 @@ Pokemon Search
 Framework - FastAPI
 Language - Python
 
-Requirements for the requirements.txt file
-
-Dependencies installed via pip
-fastapi - the framework 0.67.0
-uvicorn - the server for the framework 0.14.0
-black - code formatter 21.7b0 ??
-requests - 2.26.0
-pytest - 6.2.4
-pylint - 2.9.6
-
 app runs on localhost:8000
 localhost:8000
 localhost:8000/pokemon/<pokemon-name>
@@ -25,4 +15,23 @@ to run in vscode with debugger open the debugger menu
 - Select FastAPI
 - enter path - app.main.py
 
-run tests with pytest - set up tests to run inside the docker container
+run tests with pytest
+
+Docker commands:
+docker build -t pokemon-search-image .
+docker run -d --name pokemon-search-container -p 80:80 pokemon-search-image
+
+http://localhost:80/pokemon/mewtwo
+http://localhost:80/pokemon/translated/mewtwo
+
+To run tests
+docker exec pokemon-search-container /bin/sh -c "pytest"
+
+or interactively
+docker exec -it pokemon-search-container /bin/sh
+$ pytest -v
+
+Clean up the docker environment
+docker container stop pokemon-search-container
+docker container rm pokemon-search-container
+docker image rm pokemon-search-image

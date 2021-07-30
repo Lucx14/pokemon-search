@@ -1,5 +1,5 @@
 import requests
-from ..utils.app_exceptions import PokemonApiException, InvalidNameException
+from app.utils.app_exceptions import PokemonApiException, InvalidNameException
 
 
 class PokemonApiClient:

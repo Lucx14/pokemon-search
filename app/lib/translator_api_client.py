@@ -1,5 +1,5 @@
 import requests
-from ..utils.app_exceptions import TranslatorApiException
+from app.utils.app_exceptions import TranslatorApiException
 
 
 class TranslatorApiClient:

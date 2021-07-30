@@ -1,4 +1,4 @@
-from ..lib.pokemon_api_client import PokemonApiClient
+from app.lib.pokemon_api_client import PokemonApiClient
 
 
 class PokemonSpeciesSearchService:

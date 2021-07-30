@@ -1,4 +1,4 @@
-from ..lib.translator_api_client import TranslatorApiClient
+from app.lib.translator_api_client import TranslatorApiClient
 
 
 class FunTranslationService:
