@@ -1,37 +1,57 @@
-Pokemon Search
+# Pokemon Search
 
-Framework - FastAPI
+A simple 2 endpoint api to search for pokemon by name
+
 Language - Python
 
-app runs on localhost:8000
-localhost:8000
-localhost:8000/pokemon/<pokemon-name>
-localhost:8000/pokemon/translated/<pokemon-name>
-docs available on localhost:8000/docs
+Framework - FastAPI
 
-to run in vscode with debugger open the debugger menu
+## Clone project
 
-- Run and Debug
-- Select FastAPI
-- enter path - app.main.py
+```
+$ git clone https://github.com/Lucx14/pokemon-search.git
+$ cd pokemon-search
+```
 
-run tests with pytest
+## To run with Docker
 
-Docker commands:
-docker build -t pokemon-search-image .
-docker run -d --name pokemon-search-container -p 80:80 pokemon-search-image
+```
+$ docker build -t pokemon-search-image .
+$ docker run -d --name pokemon-search-container -p 80:80 pokemon-search-image
+```
 
-http://localhost:80/pokemon/mewtwo
-http://localhost:80/pokemon/translated/mewtwo
+Then use Postman or a browser window to search for pokemon at these endpoints
 
-To run tests
-docker exec pokemon-search-container /bin/sh -c "pytest"
+> http://localhost:80/pokemon/mewtwo
 
-or interactively
-docker exec -it pokemon-search-container /bin/sh
+> http://localhost:80/pokemon/translated/mewtwo
+
+To Access the api documentation in a browser window
+
+> http://localhost:80/docs
+
+To run the tests whilte the container is running:
+
+```
+$ docker exec pokemon-search-container /bin/sh -c "pytest"
+```
+
+And if you want to run test in interactive mode:
+
+```
+$ docker exec -it pokemon-search-container /bin/sh
 $ pytest -v
+$ exit
+```
 
-Clean up the docker environment
-docker container stop pokemon-search-container
-docker container rm pokemon-search-container
-docker image rm pokemon-search-image
+To clear up you docker environment:
+
+```
+$ docker container stop pokemon-search-container
+$ docker container rm pokemon-search-container
+$ docker image rm pokemon-search-image
+```
+
+---
+
+The requirements asked about changes or improvements if this was to be a production api. I would think about looking into caching api responses so that if a user requested the same name multiple times, my api would not need to call the poke api every time, same for the translator. And I would have another look at my error handling in the api clients because at the moment I raise exceptions specifically for a not found 404 or anything that is not a 200 response code so I think there is room for improvement there.
